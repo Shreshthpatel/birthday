@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Wishes</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-image 1s ease-in-out;
+  }
+  #message {
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px 10px black;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInOut 4s ease-in-out;
+  }
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.9); }
+    25% { opacity: 1; transform: scale(1); }
+    75% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.9); }
+  }
+  #nextBtn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid white;
+    border-radius: 30px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.6s ease;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  #nextBtn.show {
+    opacity: 1;
+    transform: scale(1);
+    bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+  }
+  #nextBtn:hover {
+    background-color: rgba(255,255,255,0.4);
+    
+  }
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="asset/tumtak.mp3" type="audio/mpeg">
+</audio>
+
+<div id="message">Happiest Birthday Ojaswini!</div>
+<button id="nextBtn">Next →</button>
+
+<script>
+const messages = [
+  { text: "Happiest Birthday, Ojaswini!", bg: "asset/ojaswi2(1).png" },
+  { text: "It's been 5479 days since earth got blessed.", bg: "asset/ojaswi.png" },
+  { text: "May you keep shining brighter and brighter every day.", bg: "asset/ojaswi2(3).png" },
+  { text: "Thank you so much!", bg: "asset/ojaswi2(2).png" },
+  { text: "You never made me feel that I don't have a best friend.", bg: "asset/ojaswi2(1).png" },
+  { text: "You're the one who truly understands me.", bg: "asset/ojaswi.png" }
+];
+
+let current = 0;
+const messageElement = document.getElementById("message");
+const body = document.body;
+const nextBtn = document.getElementById("nextBtn");
+
+function showMessage() {
+  const msg = messages[current];
+  messageElement.textContent = msg.text;
+  body.style.backgroundImage = `url('${msg.bg}')`;
+  messageElement.style.animation = "none";
+  void messageElement.offsetWidth; // restart animation
+  messageElement.style.animation = "fadeInOut 8s ease-in-out";
+}
+
+showMessage();
+
+const interval = setInterval(() => {
+  current++;
+  if (current < messages.length) {
+    showMessage();
+  } else {
+    clearInterval(interval);
+    setTimeout(() => {
+      nextBtn.classList.add("show");
+    }, 1000); // show Next button after last message fades out
+  }
+}, 8000); // 8 seconds per message
+
+nextBtn.addEventListener("click", () => {
+  window.location.href = "index3.html";
+});
+</script>
+
+</body>
+</html>

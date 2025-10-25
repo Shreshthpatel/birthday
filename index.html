@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown Redirect</title>
+  <style>
+    body {
+      background-color: black;
+    background-image: url('asset/ojaswi.png');
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;
+      color: white;
+      font-family: "Segoe UI", Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #countdown {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px 40px;
+      border-radius: 10px;
+       transform: scale(1.0);
+  transition-duration: 0.5s;
+
+    }
+    #countdown:hover {
+  background-color: rgba(0, 0, 0, 0.562);
+  color: white;
+  transform: scale(1.1);
+  transition-duration: 0.5 s;
+}
+
+    .time-part {
+      display: inline-block;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>TIME LEFT</h1>
+  <div id="countdown"></div>
+
+  <script>
+    // Format: Year, Month (0–11), Day, Hour, Minute, Second
+    const unlockDate = new Date(2025, 9, 30, 0, 0, 0); 
+    // Example: 2025-10-20 18:30:00  (Month is 0-indexed)
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = unlockDate - now;
+
+      if (diff <= 0) {
+        window.location.href = "index1.html";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").innerHTML = `
+        <span class="time-part">${days}<span class="label">Days</span></span>
+        <span class="time-part">${hours}<span class="label">Hours</span></span>
+        <span class="time-part">${minutes}<span class="label">Minutes</span></span>
+        <span class="time-part">${seconds}<span class="label">Seconds</span></span>
+      `;
+    }
+      updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
